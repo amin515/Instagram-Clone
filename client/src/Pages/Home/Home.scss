@@ -1,0 +1,192 @@
+
+.home-container{
+    display: flex;
+    justify-content: center;
+    .home-wrapper{
+        width: 860px;
+        display: flex;
+        justify-content: space-around;
+        .timeline{
+            
+            flex: 6.1;
+            .post-card{
+              background-color: #fff;
+              margin: 30px 0;
+              border: 1px solid #e9e9e9;
+              border-radius: 5px;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              .post-header{
+                    display: flex;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 15px;
+                    align-items: center;
+                    .post-user-info{
+                        display: flex;
+                        justify-content: space-between;
+                        img{
+                         width: 25px;
+                         height: 25px;
+                         border-radius: 50%;
+                         margin-top: 7px;
+                         border: 1px solid #e9e9e9;
+                         
+                        }
+                        .user-details{
+                            display: flex;
+                            flex-direction: column;
+                            color: rgb(31, 30, 30);
+                            margin-left: 10px;
+                            letter-spacing: 0ch;
+                            .user-name{
+                               text-decoration: none;
+                               color: rgb(31, 30, 30);
+                               font-size: 14px;
+                               font-weight: bold;
+                            }
+                            .location{
+                                font-size: 12px;
+                                font-weight: bold;
+                            }
+                        }
+                        
+                    }
+                    .post-usr-opt{
+                        button{
+                            border: none;
+                            background-color: transparent;
+                        }
+                        
+                    }
+                }
+                .post-image{
+                    width: 100%;
+                    img{
+                        width: 100%;
+                    }
+                }
+                .comment-icons{
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    padding: 15px 10px;
+                    .icon-left{
+                        display: flex;
+                        font-size: 20px;
+                        gap: 10px;
+                        a{
+                            color: black;
+                        }
+                    }
+                    .icon-right{
+                        font-size: 20px;
+                        a{
+                         color: black;
+                        }
+                    }
+                }
+                .comment-sec{
+                    display: flex;
+                    padding: 0 10px;
+                    .comment-wrapper{
+                        display: flex;
+                        flex-direction: column;
+                        span{
+                            
+                        }
+                        .com-text{
+                            a{
+                                text-decoration: none;
+                                font-weight: bold;
+                                color: #000;
+                                margin-right: 5px;
+                            }
+                            margin: 10px 0;
+                            color: gray;
+                        }
+                        .view-comm{
+                            text-decoration: none;
+                            color: #858282;
+                            font-size: 13px;
+                            margin: 7px 0;
+                        }
+                        .day-before{
+                            color: #858282;
+                            font-size: 13px;
+                            padding: 10px 0;
+                        }
+                    }
+                }
+                .message-sec{
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    justify-content: space-between;
+                    padding: 8px 10px;
+                    border-top: 1px solid rgb(238, 236, 236);
+                    button{
+                        border: none;
+                        background-color: transparent;
+                        font-size: 20px;
+                        margin-right: 10px;
+                    }
+                    input{
+                        border: none;
+                        width: 90%;
+                        height: 35px;
+                        outline: none;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .post{
+                        text-decoration: none;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .recommended-info{
+            flex: 3.9;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            .follow-sec{
+             display: flex;
+             gap: 15px;
+             padding: 0px 15px;
+                img{
+                    width: 40px;
+                    height: 40px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -ms-border-radius: 50%;
+                    -o-border-radius: 50%;
+                }
+                .user-info{
+                    display: flex;
+                    flex-direction: column;
+                    .user-name{
+                        display: flex;
+                        justify-content: center;
+                        font-size: 14px;
+                    }
+                    .name{
+                        font-size: 13px;
+                    }
+                }
+                
+            }
+            .switch-btn{
+                text-decoration: none;
+                font-size: 14px;
+            }
+        }
+    }
+}
