@@ -8,12 +8,12 @@ export const sendEmail = async (to, subject, text) => {
             host: "smtp.mailtrap.io",
             port: 2525,
             auth: {
-              user: "90a52989edbe4b",
-              pass: "6986edef3e9d24"
+                user: "6fc3faf557e925",
+                pass: "bcb2e15dc440cd"
             }
           });
 
-
+ 
 
         transport.sendMail({
             from : '',

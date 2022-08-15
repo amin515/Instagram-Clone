@@ -8,7 +8,6 @@ import AuthFooter from '../../Components/AuthFooter/AuthFooter';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
-import swal from 'sweet-alert'
 
 const Register = () => {
 
@@ -49,7 +48,6 @@ const Register = () => {
           location : ''
         })
       
-        swal("Success!","Your account create successfully !","success")
    
 
       }).catch( err => {

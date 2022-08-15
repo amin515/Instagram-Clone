@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser, deleteUser, getAllUser, getSingleUser, loggedInUser, updateUser, userLogin, userRegister,  } from '../Controllers/UserControllers.js';
+import { createUser, deleteUser, getAllUser, getSingleUser, loggedInUser, updateUser, userLogin, userRegister, verifyUserAccount,  } from '../Controllers/UserControllers.js';
 import { adminMiddleWare } from '../Middlewares/adminMiddleware.js';
 import { authMiddleWare } from '../Middlewares/authMiddleWare.js';
 import { userMiddleWare } from '../Middlewares/userMiddleware.js';
@@ -11,9 +11,11 @@ const router = express.Router();
 
 
 // user login router
-router.route('/me').get(loggedInUser)
+router.route('/me').get(loggedInUser);
+router.route('/verify_acc').post(verifyUserAccount);
 router.post('/login', userLogin);
 router.post('/register', userRegister);
+
 
 
 

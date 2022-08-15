@@ -41,7 +41,6 @@ const userSchema = mongoose.Schema({
     },
     location : {
         type : String,
-        default : 'Dhaka'
     },
     isVerified : {
         type : Boolean,

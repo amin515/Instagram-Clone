@@ -17,6 +17,7 @@ import axios from 'axios';
 import LoaderContext from './Context/LoaderContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Verify from './Components/AuthFooter/Verify/Verify';
 
 
 
@@ -88,6 +89,7 @@ function App() {
       <Route path="/register"element={<AuthRedirectUser><Register /></AuthRedirectUser>}/>
       <Route path="/:id"element={<AuthenticateUser><Profile /></AuthenticateUser>}/>
       <Route path="/"element={<AuthenticateUser><Home /></AuthenticateUser>}/>
+      <Route path="/user/:id/verify/:token"element={<Verify />}/>
     </Routes>
     </>
   );

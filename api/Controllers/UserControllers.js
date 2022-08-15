@@ -2,8 +2,10 @@ import User from '../Models/UserModels.js'
 import bcrypt from 'bcryptjs';
 import customError from './createCustomError.js';
 import jwt from 'jsonwebtoken'
+import { createToken } from '../utility/createToken.js';
 import { sendEmail } from '../utility/sendEmail.js';
-import { sendSMS } from '../utility/sendSMS.js';
+import TokenModel from '../Models/TokenModel.js';
+
 
 
 
@@ -188,9 +190,18 @@ import { sendSMS } from '../utility/sendSMS.js';
  
      try{
      
+        // send user data
          const user = await User.create({ ...req.body, password : hash_pass});
-         sendEmail(user.email, 'Ingtagram verify', `Hi ${user.name} please verify your account`);
-         sendSMS();
+        
+        
+        // create token
+        const token = createToken({ id : user._id});
+
+        // token update
+        await TokenModel.create({userId : user._id, token : token});
+        // send verify link
+        const verify_account = `http://localhost:3000/user/${user._id}/verify/${token}`
+        await sendEmail(user.email, "Verify account", verify_account)
          res.status(200).json(user)
          
      }catch(error){
@@ -287,4 +298,40 @@ export const loggedInUser = async (req, res, next) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+/**
+ * @access public
+ * @method post 
+ * @status user/verify
+ * @route /api/user/verify_acc
+ */
+
+// verify user account
+export const verifyUserAccount = async (req, res, next) => {
+  
+   try {
+
+    const { id, token } = req.body;
+
+    const  verify_user = await TokenModel.findOne({ id : id, token : token})
+    console.log(verify_user)
+
+    // check url valid or not
+    if(!verify_user){
+        next(customError(404, 'Invalid verify url'))
+    }
+
+    if(verify_user){
+       
+        await User.findByIdAndUpdate( id, {
+            isVerified : true
+        })
+        res.status(200).json({ message : 'Account verify successful'});
+        verify_user.remove();
+    }
+
+   } catch (error) {
+     console.log(error)
+   }
 }
