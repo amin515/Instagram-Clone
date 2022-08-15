@@ -5,23 +5,15 @@ import './Login.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthFooter from '../../Components/AuthFooter/AuthFooter';
 import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import cookie from 'js-cookie';
 import AuthContext from '../../Context/AuthContext';
+import LoaderContext from '../../Context/LoaderContext';
+import { createToast } from '../../utility/toast';
 const Login = () => {
 
   // use context for auth
-  const {dispatch } = useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext)
   const navigate = useNavigate();
-
-
-  // create a toast alert
-   const createToast = (msg) => {
-  return toast(msg);
-  };
-
-
 
 
   // set input for form data;
@@ -37,7 +29,8 @@ const handleInput = (e) => {
 }
 
 
-
+// loader context
+const {loaderDispatch} = useContext(LoaderContext)
 
 
 
@@ -55,16 +48,21 @@ const handleSubmitLogin = async (e) =>{
     .then( res => {
       console.log(res.data);
       
-      createToast('Login Successfully ❤');
-      cookie.set('token', res.data.token);
-      dispatch({type : 'LOGIN_DATA_SUCCESS', payload : res.data.user});
-      navigate('/');
-       
-      setInput({
-        auth : '',
-        password : '',
-      });
+      if(res.data.user.isVerified){
+        createToast('Login Successfully ❤');
+        cookie.set('token', res.data.token);
+        dispatch({type : 'LOGIN_DATA_SUCCESS', payload : res.data});
+        navigate('/');
+        loaderDispatch({type : 'LOADING_START'});
 
+        setInput({
+          auth : '',
+          password : '',
+        });
+      }else{
+       createToast('plz verify your account')
+      }
+      
     });
   }
  } catch (error) {
@@ -75,17 +73,7 @@ const handleSubmitLogin = async (e) =>{
   return (
     <div>
         <div className="login-container">
-        <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          />
+        
         <div className="login-wrapper">
             <a className='login-logo-link' href="#"><img className='login-log-img' src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png" alt="" /></a>
             <form onSubmit={ handleSubmitLogin } className='login-form'>

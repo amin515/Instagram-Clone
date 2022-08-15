@@ -9,7 +9,7 @@ const AuthRedirectUser = ({children}) => {
  
  const { isLoggedInUser } = useContext(AuthContext);
 
- return isLoggedInUser ? <Navigate to={'/login'} />  : children ;
+ return isLoggedInUser ? <Navigate to={'/'} />  : children ;
 
 }
 

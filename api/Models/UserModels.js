@@ -39,6 +39,14 @@ const userSchema = mongoose.Schema({
     photo : {
         type : String,
     },
+    location : {
+        type : String,
+        default : 'Dhaka'
+    },
+    isVerified : {
+        type : Boolean,
+        default : false,
+    },
     isAdmin : {
         type : Boolean,
         default : false,

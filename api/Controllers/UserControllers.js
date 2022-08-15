@@ -2,6 +2,8 @@ import User from '../Models/UserModels.js'
 import bcrypt from 'bcryptjs';
 import customError from './createCustomError.js';
 import jwt from 'jsonwebtoken'
+import { sendEmail } from '../utility/sendEmail.js';
+import { sendSMS } from '../utility/sendSMS.js';
 
 
 
@@ -187,9 +189,10 @@ import jwt from 'jsonwebtoken'
      try{
      
          const user = await User.create({ ...req.body, password : hash_pass});
-         res.status(200).json(
-             user
-         )
+         sendEmail(user.email, 'Ingtagram verify', `Hi ${user.name} please verify your account`);
+         sendSMS();
+         res.status(200).json(user)
+         
      }catch(error){
         console.log(error);
          next(customError(404, 'User data not found'));
@@ -202,44 +205,86 @@ import jwt from 'jsonwebtoken'
  * @status user/loggedIn
  * @route /api/user/me
  */
-export const getLoggedInUser = async (req, res, next) =>{
+// export const getLoggedInUser = async (req, res, next) =>{
     
-
-    try {
-        // get token
-        const bearer_token = req.headers.authorization;
+//     try {
+//         // get token
+//         const bearer_token = req.headers.authorization;
         
-        let token = '';
+//         let token = '';
 
-        if(bearer_token){
-            token = bearer_token.split(' ')[1]
+//         if(bearer_token){
+//             token = bearer_token.split(' ')[1]
             
-
-            // check user token
-            const logged_in_user = jwt.verify(token, process.env.JWT_SECRET);
+//             // check user token
+//             const logged_in_user = jwt.verify(token, process.env.JWT_SECRET);
             
-            // check user
-            if(!logged_in_user){
-                next(customError(401, 'Invalid token'));
-            }
+//             // check user
+//             if(!logged_in_user){
+//                 next(customError(401, 'Invalid token'));
+//             }
 
-            // check user
-            if(logged_in_user){
-                const user = await User.findById(logged_in_user.id)
-                res.status(200).json(user);
-            }
-
-
+//             // check user
+//             if(logged_in_user){
+//              let user = User.findById(logged_in_user.id)
+//                 res.send(user)
+//             }
 
 
-        }
+//         }
 
-        // check user token exist or not
-        if(!bearer_token){
-            next(customError(404, 'Token not found'));
-        }
-    } catch (error) {
-        next(error)
-    }
+//         // check user token exist or not
+//         if(!bearer_token){
+//             next(customError(404, 'Token not found'));
+//         }
+//     } catch (error) {
+//         next(error)
+//     }
     
+// }
+
+export const loggedInUser = async (req, res, next) => {
+  
+    try {
+    // Get token
+    const bearer_token = req.headers.authorization;
+     
+    let token = '';
+    if(bearer_token){
+        token = bearer_token.split(' ')[1]
+        
+
+
+
+        // check user 
+        const logged_in_user = jwt.verify(token, process.env.JWT_SECRET)
+        console.log(logged_in_user)
+
+        //check user
+        if(!logged_in_user){
+            next(customError(401, 'Invalid Token'))
+            res.send(customError(401, 'Invalid Token'))
+        }
+
+        // if valid user
+        if(logged_in_user){
+         let user = await User.findById(logged_in_user.id)
+         res.status(200).json(user)
+        }
+
+
+
+    }
+
+
+
+    // token exist or not
+    if(!bearer_token){
+      next(customError(404, 'Token not found'))
+    }
+
+        
+    } catch (error) {
+        console.log(error)
+    }
 }

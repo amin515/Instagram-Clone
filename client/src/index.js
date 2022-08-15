@@ -6,6 +6,7 @@ import './App.scss';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthContextProviders from './Providers/AuthContextProviders';
+import LoaderContextProviders from './Providers/LoaderContextProvider';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProviders>
-        <App />
+        <LoaderContextProviders>
+         <App />
+        </LoaderContextProviders>
       </AuthContextProviders>
     </BrowserRouter>
   </React.StrictMode>

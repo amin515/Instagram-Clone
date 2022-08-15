@@ -5,7 +5,11 @@ import { GrSearch } from "react-icons/gr";
 import { AiFillHome } from "react-icons/ai";
 import { FiSend, FiPlusSquare } from "react-icons/fi";
 import { AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
+import { useContext } from 'react';
+import AuthContext from '../../Context/AuthContext';
 const TopBar = () => {
+
+  const { user } = useContext(AuthContext)
   return (
     <div>
       <div className="topbar-container">
@@ -27,7 +31,7 @@ const TopBar = () => {
                   <li><a href="#"><FiPlusSquare/></a></li>
                   <li><a href="#"><AiOutlineCompass/></a></li>
                   <li><a href="#"><AiOutlineHeart/></a></li>
-                  <li><a href="https://ibb.co/Yt0Nx12"><img src="https://i.ibb.co/4j1FHXW/295776538-457934336162409-5961947184979946612-n.jpg" alt="295776538-457934336162409-5961947184979946612-n" border="0"/></a></li>
+                  <li><a href="#"><img src={ `${user.photo ? user.photo : 'https://cdn2.vectorstock.com/i/1000x1000/23/81/default-avatar-profile-icon-vector-18942381.jpg'}` } border="0"/></a></li>
               </ul>
           </div>
        </div>

@@ -8,6 +8,7 @@ import AuthFooter from '../../Components/AuthFooter/AuthFooter';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
+import swal from 'sweet-alert'
 
 const Register = () => {
 
@@ -37,14 +38,20 @@ const Register = () => {
     if(!input.email || !input.name || !input.username || !input.password){
       createToast('All fields are required');
     }else{
-      await axios.post('http://localhost:1100/api/user/register', {email : input.email, name : input.name, username : input.username, password : input.password})
+      await axios.post('http://localhost:1100/api/user/register', {email : input.email, name : input.name, username : input.username, password : input.password, location : input.location , photo : input.photo})
       .then( res => {
         setInput( {
           name : '',
           email : '',
           username : '',
-          password : ''
+          password : '',
+          photo : '',
+          location : ''
         })
+      
+        swal("Success!","Your account create successfully !","success")
+   
+
       }).catch( err => {
         console.log(err)
       })
@@ -83,6 +90,8 @@ const Register = () => {
             <input name='name' value={ input.name } onChange={ handleInput } className='login-input' type="text" placeholder='Full Name'/>
             <input name='username' value={ input.username } onChange={ handleInput } className='login-input' type="text" placeholder='Username'/>
             <input name='password' value={input.password } onChange={ handleInput } className='login-input' type="password" placeholder='password'/>
+            <input name='location' value={input.location } onChange={ handleInput } className='login-input' type="text" placeholder='location'/>
+            <input name='photo' value={input.photo } onChange={ handleInput } className='login-input' type="text" placeholder='photo'/>
             <p className="form_reg_text">Peaple who use our service may have uploaded your contact information to instgram. <a href="#">Learn More</a></p>
             <p className="form_reg_text">By signing up, you agree to our <a href="#">Terms,</a><a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a></p>
             <button className='login-submit' type='submit'>Submit</button>

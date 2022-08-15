@@ -11,12 +11,16 @@ import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import AuthContext from '../../Context/AuthContext';
+import LoaderContext from '../../Context/LoaderContext';
 const Home = () => {
 
   // use context
-  const { dispatch } = useContext(AuthContext)
+  const { dispatch , user} = useContext(AuthContext)
   // navigato
   const navigate = useNavigate();
+
+  // loader context
+  const { loaderDispatch } = useContext(LoaderContext)
  
   // logout user
   const handleLogout = (e) => {
@@ -26,7 +30,7 @@ const Home = () => {
   Cookie.remove('user');
   dispatch({type : 'USER_LOGOUT'});
   navigate('/login');
-
+  loaderDispatch({ type : 'LOADING_START'});
   }
 
 
@@ -43,10 +47,10 @@ const Home = () => {
            <div className="post-card">
             <div className="post-header">
               <div className="post-user-info">
-              <img src="https://i.ibb.co/4j1FHXW/295776538-457934336162409-5961947184979946612-n.jpg"/>
+              <img src={`${user.photo ? user.photo : 'https://cdn2.vectorstock.com/i/1000x1000/23/81/default-avatar-profile-icon-vector-18942381.jpg'}`}/>
                 <div className="user-details">
-                  <a href="#" className="user-name">Nur Amin</a>
-                  <span className="location">Bogura</span>
+                  <a href="#" className="user-name">{user.name}</a>
+                  <span className="location">{user.location}</span>
                 </div>
               </div>
               <div className="post-usr-opt">
@@ -92,9 +96,9 @@ const Home = () => {
 
             <div className="post-header">
               <div className="post-user-info">
-              <img src="https://i.ibb.co/4j1FHXW/295776538-457934336162409-5961947184979946612-n.jpg"/>
+              <img src={user.photo}/>
                 <div className="user-details">
-                  <a href="#" className="user-name">Nur Amin</a>
+                  <a href="#" className="user-name">{user.name}</a>
                   <span className="location">Bogura</span>
                 </div>
               </div>
@@ -238,10 +242,10 @@ const Home = () => {
         </div>
         <div className="recommended-info">
          <div className="follow-sec">
-         <img src="https://i.ibb.co/4j1FHXW/295776538-457934336162409-5961947184979946612-n.jpg"/>
+         <img src={`${user.photo ? user.photo : 'https://cdn2.vectorstock.com/i/1000x1000/23/81/default-avatar-profile-icon-vector-18942381.jpg'}`}/>
          <div className="user-info">
-         <span className="username">amin2145</span>
-         <span className="name">Nur Amin</span>
+         <span className="username">{user.username}</span>
+         <span className="name">{user.name}</span>
          </div>
          </div>
          <a href="#" className="switch-btn">Switch</a>
